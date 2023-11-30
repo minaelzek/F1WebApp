@@ -13,7 +13,7 @@ const Login = () => {
         // Check if both username and password are empty
         if (username === "" && password === "") {
             // Redirect to the dashboard page
-            history.push('/dashboard'); // Replace '/dashboard' with your actual dashboard route
+            history.push('/Dashboard'); // Replace '/dashboard' with your actual dashboard route
         } else {
             // Here you can add your login validation logic if username and password are not empty
         }
