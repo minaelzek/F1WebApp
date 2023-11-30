@@ -1,0 +1,22 @@
+
+.dashboard-container {
+    color: #fff;
+    background-color: #202020;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    margin: auto;
+}
+
+.dashboard-header {
+    color: #ff0000;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #303030;
+    border-radius: 5px;
+}
