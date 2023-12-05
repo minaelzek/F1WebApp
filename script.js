@@ -47,5 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Repeat for Facebook, GitHub, and LinkedIn
-    // ...
+    // After repeating must implement backend
+    // Consult Alex
 });
