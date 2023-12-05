@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,13 +18,45 @@
     </nav>
     
     <div class="background-image"></div> <!-- Background image for visual appeal -->
-    <div class="login-container">
-        <form class="login-form">
-            <h1>Welcome to F1 Fantasy</h1>
-            <input type="text" placeholder="Username" name="username">
-            <input type="password" placeholder="Password" name="password">
-            <button type="submit">Login</button>
-        </form>
+
+    <!-- Modern Login Container -->
+    <div class="container">
+        <!-- Sign-in Form -->
+        <div class="form-container sign-in">
+            <form>
+                <h1>Sign In to F1 Fantasy</h1>
+                <input type="text" placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <button type="submit">Login</button>
+                <p><a href="#">Forgot your password?</a></p>
+            </form>
+        </div>
+        <!-- Sign-up Form -->
+        <div class="form-container sign-up">
+            <form>
+                <h1>Create Account</h1>
+                <input type="text" placeholder="Name" />
+                <input type="email" placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        <!-- Toggle Container -->
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us, please login with your personal info</p>
+                    <button id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start your journey with us</p>
+                    <button id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- End Modern Login Container -->
 </body>
 </html>
