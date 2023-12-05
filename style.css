@@ -208,3 +208,24 @@ body{
 .container.active .toggle-right{
     transform: translateX(200%);
 }
+/* Existing styles... */
+
+/* Style for the background video */
+#background-video {
+    position: fixed; /* Fixed position to cover the entire viewport */
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100; /* Keep it behind all other content */
+}
+
+/* Ensuring the rest of the content is above the video */
+.content {
+    position: relative;
+    z-index: 1; /* Higher than the video */
+}
+
+/* Your other styles... */
