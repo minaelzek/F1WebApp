@@ -1,25 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-/* Reset and basic setup */
-body, html {
+*{
     margin: 0;
     padding: 0;
-    height: 100%;
+    box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
 }
 
-/* Existing background image styling */
-.background-image {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('f1-background.jpg'); /* Replace with your chosen image */
-    background-size: cover;
-    filter: blur(5px);
-    z-index: -1;
+body{
+    background-color: #c9d6ff;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
 }
 
-/* Modern login design styles */
 .container{
     background-color: #fff;
     border-radius: 30px;
@@ -38,10 +35,13 @@ body, html {
     margin: 20px 0;
 }
 
-.container span,
-.container a{
+.container span{
     font-size: 12px;
+}
+
+.container a{
     color: #333;
+    font-size: 13px;
     text-decoration: none;
     margin: 15px 0 10px;
 }
@@ -58,6 +58,11 @@ body, html {
     text-transform: uppercase;
     margin-top: 10px;
     cursor: pointer;
+}
+
+.container button.hidden{
+    background-color: transparent;
+    border-color: #fff;
 }
 
 .container form{
@@ -81,32 +86,125 @@ body, html {
     outline: none;
 }
 
-/* Additional styles from the modern login design */
-/* ... (Include all relevant styles from the modern login design) ... */
-
-/* Merging button styles from both designs */
-.button, .container button {
-    background-color: #512da8;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.form-container{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
 }
 
-.button:hover, .container button:hover {
-    background-color: #450a77;
+.sign-in{
+    left: 0;
+    width: 50%;
+    z-index: 2;
 }
 
-/* Responsive and other styles from the original design */
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
+.container.active .sign-in{
+    transform: translateX(100%);
+}
+
+.sign-up{
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.container.active .sign-up{
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: move 0.6s;
+}
+
+@keyframes move{
+    0%, 49.99%{
+        opacity: 0;
+        z-index: 1;
     }
-    /* Additional responsive styles as needed */
+    50%, 100%{
+        opacity: 1;
+        z-index: 5;
+    }
 }
 
-/* Retaining other necessary styles from the original design */
-/* ... (Include other necessary styles from your original design) ... */
+.social-icons{
+    margin: 20px 0;
+}
 
+.social-icons a{
+    border: 1px solid #ccc;
+    border-radius: 20%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 3px;
+    width: 40px;
+    height: 40px;
+}
+
+.toggle-container{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+    border-radius: 150px 0 0 100px;
+    z-index: 1000;
+}
+
+.container.active .toggle-container{
+    transform: translateX(-100%);
+    border-radius: 0 150px 100px 0;
+}
+
+.toggle{
+    background-color: #512da8;
+    height: 100%;
+    background: linear-gradient(to right, #5c6bc0, #512da8);
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.container.active .toggle{
+    transform: translateX(50%);
+}
+
+.toggle-panel{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 30px;
+    text-align: center;
+    top: 0;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.toggle-left{
+    transform: translateX(-200%);
+}
+
+.container.active .toggle-left{
+    transform: translateX(0);
+}
+
+.toggle-right{
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.active .toggle-right{
+    transform: translateX(200%);
+}
