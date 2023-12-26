@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import F1User
+from .models import User, Team, Driver
 
 # Register your models here.
-admin.site.register(F1User)
+admin.site.register(User)
+admin.site.register(Team)
+admin.site.register(Driver)

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-5l&7n!1jsb@kyyi7wgx4*uf2e-1a4zv$bh)%@8mg4pyi8@xem@
 DEBUG = True
 
 ALLOWED_HOSTS = ['.localhost','127.0.0.1']
-AUTH_USER_MODEL = 'f1.F1User'
+AUTH_USER_MODEL = 'f1.User'
 
 
 REST_FRAMEWORK = {
