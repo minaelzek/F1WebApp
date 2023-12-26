@@ -1,0 +1,8 @@
+# general
+.idea
+db.sqlite3
+dump.rbd
+.vscode
+__pycache__/
+
+Web/node_modules/
