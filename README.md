@@ -16,4 +16,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-
+* How to run react project
+```
+npm start
+```
