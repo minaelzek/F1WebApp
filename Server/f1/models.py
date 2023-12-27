@@ -81,7 +81,7 @@ class RaceResultDriver(BaseModel):
         return self.driver.name
 
     @property
-    def points(self):
+    def driver_points(self):
         position_to_points = {
             1: 25,
             2: 18,
@@ -101,11 +101,15 @@ class RaceResultDriver(BaseModel):
         if(position_to_points[self.position]):
             points += position_to_points[self.position]
         return points
-
-# this can probaly just be derived from driver results, based on team drivers and their positions 
-class RaceResultTeam(BaseModel):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
     
     @property
-    def points(self):
+    def team_points(self):
         pass
+
+# this can probaly just be derived from driver results, based on team drivers and their positions 
+# class RaceResultTeam(BaseModel):
+#     team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    
+#     @property
+#     def points(self):
+#         pass
