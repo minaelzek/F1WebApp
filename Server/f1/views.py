@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework import status, permissions
 from rest_framework.response import Response
-from .models import User
+from .models.user import User
 from .serializers import F1UserSerializer
 
 class F1UserListView(APIView):
