@@ -42,9 +42,9 @@ class RaceResult(models.Model):
     circuit = models.OneToOneField(Circuit, on_delete=models.CASCADE)
     season = models.OneToOneField(Season, on_delete=models.CASCADE)
 
-class RaceDriverPosition(models.Model):
+class RaceResultDriver(models.Model):
     driver = models.OneToOneField(Driver, on_delete=models.CASCADE)
-    postion = models.IntegerField(default=0, null=False, unique=True)
+    position = models.IntegerField(default=0, null=False, unique=True)
     race = models.ForeignKey(RaceResult, on_delete=models.CASCADE)
     did_not_finish = models.BooleanField(default=False)
     # only get fastest lap points if in top 10
@@ -70,8 +70,19 @@ class RaceDriverPosition(models.Model):
         }
 
         points = 0
-        if(self.fastest_lap and self.postion >= 10):
+        if(self.fastest_lap and self.position >= 10):
             points += 1
-        if(position_to_points[self.postion]):
-            points += position_to_points[self.postion]
+        if(position_to_points[self.position]):
+            points += position_to_points[self.position]
         return points
+    
+    def get_driver_name(self):
+        return self.driver.name
+
+# this can probaly just be derived from driver results, based on team drivers and their positions 
+class RaceResultTeam(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    
+    @property
+    def points(self):
+        pass
