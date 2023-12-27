@@ -2,31 +2,72 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator 
 from .base_model import BaseModel
 from .f1 import Driver, Circuit, Season
-    
-class QualifiyingResults(BaseModel):
-    pass
 
-class RaceResult(BaseModel):
-    circuit = models.OneToOneField(Circuit, on_delete=models.CASCADE)
+'''
+Base Models for weekend events
+'''
+class BaseModelEventResult(BaseModel):
+    circuit = models.ForeignKey(Circuit, on_delete=models.CASCADE)
     season = models.ForeignKey(Season, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
 
     def __str__(self):
         return f"{self.season.year} {self.circuit.name}"
 
-class RaceResultDriver(BaseModel):
+class BaseModelEventDriverResult(BaseModel):
     driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
     position = models.IntegerField(default=0, null=False, unique=False, validators=([MinValueValidator(1), MaxValueValidator(25)]))
-    race = models.ForeignKey(RaceResult, on_delete=models.CASCADE)
     did_not_finish = models.BooleanField(default=False)
-    # TODO: only get fastest lap points if in top 10
-    fastest_lap = models.BooleanField(default=False)
-    driver_of_the_day = models.BooleanField(default=False)
     laps = models.IntegerField(default=0, null=False)
     # Race Time in miliseconds
     time = models.IntegerField(default=0, null=False)
 
+    class Meta:
+        abstract = True
+
     def __str__(self):
         return self.driver.name
+
+'''
+Sprint Shootout
+'''
+class SprintShootoutResult(BaseModelEventResult):
+    pass
+
+class SprintShootoutResultDriver(BaseModel):
+    pass
+
+'''
+Sprint
+'''
+class SprintResult(BaseModelEventResult):
+    pass
+
+class SprintResultDriver(BaseModel):
+    pass
+    
+'''
+Qualifying
+'''
+class QualifiyingResults(BaseModelEventResult):
+    pass
+
+class QualifyingResultDriver(BaseModelEventDriverResult):
+    qualifying = models.ForeignKey(QualifiyingResults, on_delete=models.CASCADE)
+    
+'''
+Race
+'''
+class RaceResult(BaseModelEventResult):
+    pass
+
+class RaceResultDriver(BaseModelEventDriverResult):
+    race = models.ForeignKey(RaceResult, on_delete=models.CASCADE)
+    # TODO: only get fastest lap points if in top 10
+    fastest_lap = models.BooleanField(default=False)
+    driver_of_the_day = models.BooleanField(default=False)
 
     @property
     def driver_points(self):

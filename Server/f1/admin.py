@@ -14,7 +14,6 @@ admin.site.register(RaceResult)
 class RaceDriverPositionsAdmin(admin.ModelAdmin):
     list_filter = ["race"]
     list_display=("race" ,"driver_name", "position", "driver_points",)
-    # fields=["driver"]
 
     def driver_name(self, obj):
         return obj.driver.name
