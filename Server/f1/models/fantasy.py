@@ -1,7 +1,7 @@
 from django.db import models
 from .base_model import BaseModel
 from .user import User
-from .f1 import Season, Circuit, Driver
+from .f1 import Season, Circuit, Driver, Team
 
 class League(BaseModel):
     name = models.CharField(max_length=200, blank=False, null=False)
@@ -12,7 +12,14 @@ class League(BaseModel):
         return self.name
     
 class ConstructorPrediction(BaseModel):
-    pass
+    league = models.ForeignKey(League, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    team_1 = models.ForeignKey(Team, related_name="team_1", on_delete=models.CASCADE)
+    team_2 = models.ForeignKey(Team, related_name="team_2", on_delete=models.CASCADE)
+    team_3 = models.ForeignKey(Team, related_name="team_3", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username}-{self.league.name}"
 
 class WeekendEventPrediction(BaseModel):
     # league, user, season, circuit, podium_1, podium_2, podium_3, driver_4, driver_5 ,fastest_lap, driver_of_the_day, bonus_predictions(fk)
@@ -29,7 +36,7 @@ class WeekendEventPrediction(BaseModel):
     driver_of_the_day = models.ForeignKey(Driver, related_name="driver_of_the_day", on_delete=models.CASCADE)
     
     def __str__(self):
-        return f"{self.user.name}-{self.league.name}: {self.season.name} {self.circuit.name}"
+        return f"{self.user.username}-{self.league.name}: {self.season.year} {self.circuit.name}"
     
 class BonusWeekendPrediction(BaseModel):
     # league, user, over, under, description, prediction (whether over or under)
