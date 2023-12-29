@@ -6,7 +6,7 @@ from .f1 import Season, Circuit, Driver, Team
 class League(BaseModel):
     name = models.CharField(max_length=200, blank=False, null=False)
     owner = models.ForeignKey(User, related_name="owner", on_delete=models.CASCADE)
-    players = models.ManyToManyField(User)
+    players = models.ManyToManyField(User, null=True)
 
     def __str__(self):
         return self.name
