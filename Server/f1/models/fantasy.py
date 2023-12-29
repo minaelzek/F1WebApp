@@ -22,7 +22,6 @@ class ConstructorPrediction(BaseModel):
         return f"{self.user.username}-{self.league.name}"
 
 class WeekendEventPrediction(BaseModel):
-    # league, user, season, circuit, podium_1, podium_2, podium_3, driver_4, driver_5 ,fastest_lap, driver_of_the_day, bonus_predictions(fk)
     league = models.ForeignKey(League, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     season = models.ForeignKey(Season, on_delete=models.CASCADE)
@@ -39,23 +38,23 @@ class WeekendEventPrediction(BaseModel):
         return f"{self.user.username}-{self.league.name}: {self.season.year} {self.circuit.name}"
     
 class BonusWeekendPrediction(BaseModel):
-    # league, user, over, under, description, prediction (whether over or under)
     weekend_event_prediction = models.ForeignKey(WeekendEventPrediction, on_delete=models.CASCADE)
     over = models.IntegerField(default=0, null=False)
     under = models.IntegerField(default=0, null=False)
+    # where false is under and true is over
+    prediction = models.BooleanField()
     description = models.TextField(null=False, blank=False)
 
     def __str__(self):
         return self.weekend_event_prediction
 
-# These would get populated after the weekend events are all over
 class WeekendEventPredictionResult(BaseModel):
-    # WeekendEventPrediction, points_gained
-    pass
+    weekend_event_prediction = models.ForeignKey(WeekendEventPrediction, on_delete=models.CASCADE)
+    points_gained = models.IntegerField(default=0, null=False)
 
 class BonusWeekendEventPredictionResult(BaseModel):
-    # BonusWeekendPrediction, points_gained
-    pass
+    bonus_weekend_prediction = models.ForeignKey(BonusWeekendPrediction, on_delete=models.CASCADE)
+    points_gained = models.PositiveIntegerField(default=0, null=False)
 
 # TODO: a config model that will weigth each prediction? (podiums, correct top5, dotd, fl)
 
