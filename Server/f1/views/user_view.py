@@ -2,7 +2,6 @@ from rest_framework.views import APIView
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from django.db.models import Q
 from ..models.user import User
 from ..models.fantasy import League
 from ..serlializers.user_serlializer import UserSerializer
@@ -28,11 +27,11 @@ class UserLeagues(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get (self, request):
-        leagues = League.objects.filter(Q(owner__id=request.user.id) | Q(players__id=request.user.id))
+        leagues = League.objects.filter(players__id=request.user.id)
         serializer = UserLeagueSerializer(leagues, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-    def post(self, request):
+    def post (self, request):
         data = {
             'name': request.data.get('name'),
             'owner': request.user.id
@@ -44,7 +43,7 @@ class UserLeagues(APIView):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def patch(self, request):
+    def patch (self, request):
         league = get_object_or_404(League, pk=request.data.get('league_id'), owner=request.user)
         data = {
             'name': request.data.get('name', league.name)
