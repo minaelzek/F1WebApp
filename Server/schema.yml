@@ -1,0 +1,225 @@
+openapi: 3.0.3
+info:
+  title: F1 API
+  version: 0.0.1
+paths:
+  /f1/user/:
+    get:
+      operationId: f1_user_retrieve
+      tags:
+      - f1
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /f1/user/leagues/:
+    get:
+      operationId: f1_user_leagues_retrieve
+      tags:
+      - f1
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    post:
+      operationId: f1_user_leagues_create
+      tags:
+      - f1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLeague'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserLeague'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserLeague'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: f1_user_leagues_partial_update
+      tags:
+      - f1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserLeague'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserLeague'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserLeague'
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /f1/user/register/:
+    post:
+      operationId: f1_user_register_create
+      tags:
+      - f1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    PatchedUserLeague:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Created On
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        season:
+          type: integer
+        owner:
+          type: integer
+        players:
+          type: array
+          items:
+            type: integer
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          maxLength: 128
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        date_joined:
+          type: string
+          format: date-time
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+      required:
+      - id
+      - password
+      - username
+    UserLeague:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Created On
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        season:
+          type: integer
+        owner:
+          type: integer
+        players:
+          type: array
+          items:
+            type: integer
+      required:
+      - created_at
+      - id
+      - name
+      - owner
+      - players
+      - season
+      - updated_on
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
