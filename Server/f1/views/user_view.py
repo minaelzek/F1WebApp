@@ -7,6 +7,17 @@ from ..models.fantasy import League
 from ..serlializers.user_serlializer import UserSerializer
 from ..serlializers.user_serlializer import UserLeagueSerializer
 
+class RegisterUserView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        serializer = UserSerializer(data=request.data, many=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class UserListView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     
