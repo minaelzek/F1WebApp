@@ -47,9 +47,10 @@ class UserLeagues(APIView):
     def patch(self, request):
         league = get_object_or_404(League, pk=request.data.get('league_id'), owner=request.user)
         data = {
-            'name': request.data.get('name', league.name),
-            'owner': request.user.id
+            'name': request.data.get('name', league.name)
         }
+        player_ids_to_add = request.data.get('players', [])
+        league.players.add(*player_ids_to_add)
         serializer = UserLeagueSerializer(instance=league, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
