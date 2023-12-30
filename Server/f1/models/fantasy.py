@@ -7,7 +7,7 @@ class League(BaseModel):
     season = models.ForeignKey(Season, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, blank=False, null=False)
     owner = models.ForeignKey(User, related_name="owner", on_delete=models.CASCADE)
-    players = models.ManyToManyField(User, null=True)
+    players = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name
