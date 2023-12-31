@@ -50,7 +50,7 @@ paths:
       security:
       - basicAuth: []
       responses:
-        '200':
+        '201':
           description: No response body
     patch:
       operationId: f1_user_leagues_partial_update
