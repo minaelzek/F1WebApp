@@ -3,11 +3,46 @@ info:
   title: F1 API
   version: 0.0.1
 paths:
+  /f1/login/user/:
+    post:
+      operationId: f1_login_user_create
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+        required: true
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+        '401':
+          description: No response body
+  /f1/logout/user/:
+    post:
+      operationId: f1_logout_user_create
+      tags:
+      - User
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
   /f1/register/user/:
     post:
       operationId: f1_register_user_create
       tags:
-      - f1
+      - User
       requestBody:
         content:
           application/json:
@@ -21,7 +56,7 @@ paths:
               $ref: '#/components/schemas/User'
         required: true
       security:
-      - basicAuth: []
+      - cookieAuth: []
       - {}
       responses:
         '201':
@@ -42,9 +77,9 @@ paths:
           type: integer
         required: true
       tags:
-      - f1
+      - User
       security:
-      - basicAuth: []
+      - cookieAuth: []
       responses:
         '200':
           content:
@@ -62,7 +97,7 @@ paths:
           type: integer
         required: true
       tags:
-      - f1
+      - UserLeague
       requestBody:
         content:
           application/json:
@@ -76,7 +111,7 @@ paths:
               $ref: '#/components/schemas/UserLeague'
         required: true
       security:
-      - basicAuth: []
+      - cookieAuth: []
       responses:
         '201':
           content:
@@ -101,9 +136,9 @@ paths:
           type: integer
         required: true
       tags:
-      - f1
+      - UserLeague
       security:
-      - basicAuth: []
+      - cookieAuth: []
       responses:
         '200':
           content:
@@ -125,7 +160,7 @@ paths:
           type: integer
         required: true
       tags:
-      - f1
+      - UserLeague
       requestBody:
         content:
           application/json:
@@ -138,7 +173,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedUserLeague'
       security:
-      - basicAuth: []
+      - cookieAuth: []
       responses:
         '200':
           content:
@@ -162,12 +197,43 @@ paths:
           type: integer
         required: true
       tags:
-      - f1
+      - UserLeague
       security:
-      - basicAuth: []
+      - cookieAuth: []
       responses:
         '204':
           description: No response body
+  /f1/user/{user_id}/league/{league_id}/constructorPrediction/{prediction_id}:
+    get:
+      operationId: f1_user_league_constructorPrediction_retrieve
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: prediction_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Predictions
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstructorPredictionSerlializer'
+          description: ''
   /f1/user/{user_id}/leagues/:
     get:
       operationId: f1_user_leagues_retrieve
@@ -178,9 +244,9 @@ paths:
           type: integer
         required: true
       tags:
-      - f1
+      - UserLeague
       security:
-      - basicAuth: []
+      - cookieAuth: []
       responses:
         '200':
           content:
@@ -190,6 +256,51 @@ paths:
           description: ''
 components:
   schemas:
+    ConstructorPredictionSerlializer:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Created On
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        league:
+          type: integer
+        user:
+          type: integer
+        team_1:
+          type: integer
+        team_2:
+          type: integer
+        team_3:
+          type: integer
+      required:
+      - created_at
+      - id
+      - league
+      - team_1
+      - team_2
+      - team_3
+      - updated_on
+      - user
+    LoginUser:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - password
+      - username
     PatchedUserLeague:
       type: object
       properties:
@@ -313,6 +424,7 @@ components:
       - season
       - updated_on
   securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
