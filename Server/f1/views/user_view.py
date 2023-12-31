@@ -7,7 +7,6 @@ from ..models.user import User
 from ..models.fantasy import League
 from ..serlializers.user_serlializer import UserSerializer
 from ..serlializers.user_serlializer import UserLeagueSerializer
-from drf_spectacular.utils import extend_schema
 
 class UserView(APIView):
     permission_classes = [permissions.IsAuthenticated]

@@ -6,7 +6,6 @@ from django.contrib.auth import authenticate, login, logout
 from drf_spectacular.utils import extend_schema
 from ..serlializers.user_serlializer import UserSerializer
 from ..serlializers.user_serlializer import LoginUserSerializer
-from drf_spectacular.utils import extend_schema
 
 class RegisterUserView(APIView):
     permission_classes = [permissions.AllowAny]
