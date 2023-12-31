@@ -8,7 +8,9 @@ urlpatterns = [
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     # APIS
-    path('user/', user_view.UserView.as_view()),
-    path('user/register/', user_view.RegisterUserView.as_view()),
-    path('user/leagues/', user_view.UserLeagues.as_view())
+    path('user/<int:user_id>', user_view.UserView.as_view()),
+    path('register/user/', user_view.RegisterUserView.as_view()),
+    path('user/<int:user_id>/leagues/', user_view.UserLeagues.as_view()),
+    path('user/<int:user_id>/league/', user_view.UserCreateLeague.as_view()),
+    path('user/<int:user_id>/league/<int:league_id>', user_view.UserLeague.as_view())
 ]
