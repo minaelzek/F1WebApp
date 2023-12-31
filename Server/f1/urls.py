@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import user_view
+from .views import fantasy_view
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = [
@@ -7,10 +8,12 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    # APIS
+    # User APIS
     path('user/<int:user_id>', user_view.UserView.as_view()),
     path('register/user/', user_view.RegisterUserView.as_view()),
     path('user/<int:user_id>/leagues/', user_view.UserLeagues.as_view()),
     path('user/<int:user_id>/league/', user_view.UserCreateLeague.as_view()),
-    path('user/<int:user_id>/league/<int:league_id>', user_view.UserLeague.as_view())
+    path('user/<int:user_id>/league/<int:league_id>', user_view.UserLeague.as_view()),
+    # Fantasy APIs
+    path('user/<int:user_id>/league/<int:league_id>/constructorPrediction/<int:prediction_id>', fantasy_view.ConstructorPredictionView.as_view())
 ]
