@@ -10,5 +10,7 @@ urlpatterns = [
     # APIS
     path('user/', user_view.UserView.as_view()),
     path('user/register/', user_view.RegisterUserView.as_view()),
+    path('user/login/', user_view.LoginUserView.as_view()),
+    path('user/logout/', user_view.LogoutUserView.as_view()),
     path('user/leagues/', user_view.UserLeagues.as_view())
 ]
