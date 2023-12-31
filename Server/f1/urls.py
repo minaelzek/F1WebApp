@@ -10,7 +10,7 @@ urlpatterns = [
     # APIS
     path('user/<int:user_id>', user_view.UserView.as_view()),
     path('register/user/', login_view.RegisterUserView.as_view()),
-    path('login/user/', login_view.LoginUserSerializer.as_view()),
+    path('login/user/', login_view.LoginUserView.as_view()),
     path('logout/user/', login_view.LogoutUserView.as_view()),
     path('user/<int:user_id>/leagues/', user_view.UserLeagues.as_view()),
     path('user/<int:user_id>/league/', user_view.UserCreateLeague.as_view()),
