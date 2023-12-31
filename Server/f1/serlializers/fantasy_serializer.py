@@ -18,10 +18,37 @@ class ConstructorPredictionResponse(serializers.ModelSerializer):
         fields = ["id", "league", "user", "team_1", "team_2", "team_3"]
 
 
-class WeekendEventPrediction(serializers.ModelSerializer):
+class WeekendEventPredictionRequest(serializers.ModelSerializer):
     class Meta:
         model = WeekendEventPrediction
-        fields = "__all__"
+        fields = [
+            "circuit",
+            "podium_1",
+            "podium_2",
+            "podium_3",
+            "driver_4",
+            "driver_5",
+            "fastest_lap",
+            "driver_of_the_day",
+        ]
+
+
+class WeekendEventPredictionResponse(serializers.ModelSerializer):
+    class Meta:
+        model = WeekendEventPrediction
+        fields = [
+            "id",
+            "league",
+            "user",
+            "circuit",
+            "podium_1",
+            "podium_2",
+            "podium_3",
+            "driver_4",
+            "driver_5",
+            "fastest_lap",
+            "driver_of_the_day",
+        ]
 
 
 class WeekendEventPredictionResult(serializers.ModelSerializer):

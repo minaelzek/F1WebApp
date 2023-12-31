@@ -17,5 +17,7 @@ urlpatterns = [
     path('user/league/<int:league_id>', user_view.UserLeague.as_view()),
     # Fantasy APIs
     path('user/league/<int:league_id>/constructorPrediction', fantasy_view.ConstructorPredictionCreateView.as_view()),
-    path('user/league/<int:league_id>/constructorPrediction/<int:prediction_id>', fantasy_view.ConstructorPredictionView.as_view())
+    path('user/league/<int:league_id>/constructorPrediction/<int:prediction_id>', fantasy_view.ConstructorPredictionView.as_view()),
+    path('user/league/<int:league_id>/weekend_prediction', fantasy_view.WeekendEventPredictionCreateView.as_view()),
+    path('user/league/<int:league_id>/weekend_prediction/<int:prediction_id>', fantasy_view.WeekendEventPredictionView.as_view()),
 ]
