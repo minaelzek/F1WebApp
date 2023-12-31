@@ -51,6 +51,12 @@ paths:
       - basicAuth: []
       responses:
         '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLeague'
+          description: ''
+        '400':
           description: No response body
     patch:
       operationId: f1_user_leagues_partial_update
@@ -71,6 +77,12 @@ paths:
       - basicAuth: []
       responses:
         '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLeague'
+          description: ''
+        '400':
           description: No response body
   /f1/user/register/:
     post:
@@ -93,7 +105,13 @@ paths:
       - basicAuth: []
       - {}
       responses:
-        '200':
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+        '400':
           description: No response body
 components:
   schemas:
