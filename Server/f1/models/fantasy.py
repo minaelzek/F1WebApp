@@ -35,7 +35,7 @@ class WeekendEventPrediction(BaseModel):
     driver_of_the_day = models.ForeignKey(Driver, related_name="driver_of_the_day", on_delete=models.CASCADE) # TODO: remove?
     
     def __str__(self):
-        return f"{self.user.username}-{self.league.name}: {self.season.year} {self.circuit.name}"
+        return f"{self.user.username}-{self.league.name}: {self.league.season.year} {self.circuit.name}"
     
 # TODO: This is subject to change
 # TODO: add model for side bet (add points and description)
