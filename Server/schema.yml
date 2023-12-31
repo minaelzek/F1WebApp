@@ -3,11 +3,46 @@ info:
   title: F1 API
   version: 0.0.1
 paths:
+  /f1/login/user/:
+    post:
+      operationId: f1_login_user_create
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+        required: true
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+        '401':
+          description: No response body
+  /f1/logout/user/:
+    post:
+      operationId: f1_logout_user_create
+      tags:
+      - User
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
   /f1/register/user/:
     post:
       operationId: f1_register_user_create
       tags:
-      - f1
+      - User
       requestBody:
         content:
           application/json:
@@ -21,7 +56,7 @@ paths:
               $ref: '#/components/schemas/User'
         required: true
       security:
-      - basicAuth: []
+      - cookieAuth: []
       - {}
       responses:
         '201':
@@ -32,19 +67,13 @@ paths:
           description: ''
         '400':
           description: No response body
-  /f1/user/{user_id}:
+  /f1/user/:
     get:
       operationId: f1_user_retrieve
-      parameters:
-      - in: path
-        name: user_id
-        schema:
-          type: integer
-        required: true
       tags:
-      - f1
+      - User
       security:
-      - basicAuth: []
+      - cookieAuth: []
       responses:
         '200':
           content:
@@ -52,17 +81,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/User'
           description: ''
-  /f1/user/{user_id}/league/:
+  /f1/user/league/:
     post:
       operationId: f1_user_league_create
-      parameters:
-      - in: path
-        name: user_id
-        schema:
-          type: integer
-        required: true
       tags:
-      - f1
+      - League
       requestBody:
         content:
           application/json:
@@ -76,7 +99,7 @@ paths:
               $ref: '#/components/schemas/UserLeague'
         required: true
       security:
-      - basicAuth: []
+      - cookieAuth: []
       responses:
         '201':
           content:
@@ -86,7 +109,7 @@ paths:
           description: ''
         '400':
           description: No response body
-  /f1/user/{user_id}/league/{league_id}:
+  /f1/user/league/{league_id}:
     get:
       operationId: f1_user_league_retrieve
       parameters:
@@ -95,15 +118,10 @@ paths:
         schema:
           type: integer
         required: true
-      - in: path
-        name: user_id
-        schema:
-          type: integer
-        required: true
       tags:
-      - f1
+      - League
       security:
-      - basicAuth: []
+      - cookieAuth: []
       responses:
         '200':
           content:
@@ -119,13 +137,8 @@ paths:
         schema:
           type: integer
         required: true
-      - in: path
-        name: user_id
-        schema:
-          type: integer
-        required: true
       tags:
-      - f1
+      - League
       requestBody:
         content:
           application/json:
@@ -138,7 +151,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedUserLeague'
       security:
-      - basicAuth: []
+      - cookieAuth: []
       responses:
         '200':
           content:
@@ -156,31 +169,344 @@ paths:
         schema:
           type: integer
         required: true
-      - in: path
-        name: user_id
-        schema:
-          type: integer
-        required: true
       tags:
-      - f1
+      - League
       security:
-      - basicAuth: []
+      - cookieAuth: []
       responses:
         '204':
           description: No response body
-  /f1/user/{user_id}/leagues/:
-    get:
-      operationId: f1_user_leagues_retrieve
+  /f1/user/league/{league_id}/constructorPrediction:
+    post:
+      operationId: f1_user_league_constructorPrediction_create
       parameters:
       - in: path
-        name: user_id
+        name: league_id
         schema:
           type: integer
         required: true
       tags:
-      - f1
+      - Constructor Predictions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConstructorPredictionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConstructorPredictionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConstructorPredictionRequest'
+        required: true
       security:
-      - basicAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstructorPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+  /f1/user/league/{league_id}/constructorPrediction/{prediction_id}:
+    get:
+      operationId: f1_user_league_constructorPrediction_retrieve
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: prediction_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Constructor Predictions
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstructorPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+    put:
+      operationId: f1_user_league_constructorPrediction_update
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: prediction_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Constructor Predictions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConstructorPredictionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConstructorPredictionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConstructorPredictionRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstructorPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+    patch:
+      operationId: f1_user_league_constructorPrediction_partial_update
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: prediction_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Constructor Predictions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedConstructorPredictionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedConstructorPredictionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedConstructorPredictionRequest'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstructorPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+    delete:
+      operationId: f1_user_league_constructorPrediction_destroy
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: prediction_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Constructor Predictions
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstructorPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+  /f1/user/league/{league_id}/weekend_prediction:
+    post:
+      operationId: f1_user_league_weekend_prediction_create
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Weekend Predictions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WeekendEventPredictionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WeekendEventPredictionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WeekendEventPredictionRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeekendEventPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+  /f1/user/league/{league_id}/weekend_prediction/{prediction_id}:
+    get:
+      operationId: f1_user_league_weekend_prediction_retrieve
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: prediction_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Weekend Predictions
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeekendEventPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+    put:
+      operationId: f1_user_league_weekend_prediction_update
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: prediction_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Weekend Predictions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WeekendEventPredictionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WeekendEventPredictionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WeekendEventPredictionRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeekendEventPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+    patch:
+      operationId: f1_user_league_weekend_prediction_partial_update
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: prediction_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Weekend Predictions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedWeekendEventPredictionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedWeekendEventPredictionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedWeekendEventPredictionRequest'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeekendEventPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+    delete:
+      operationId: f1_user_league_weekend_prediction_destroy
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: prediction_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Weekend Predictions
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeekendEventPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+  /f1/user/leagues/:
+    get:
+      operationId: f1_user_leagues_retrieve
+      tags:
+      - League
+      security:
+      - cookieAuth: []
       responses:
         '200':
           content:
@@ -190,6 +516,62 @@ paths:
           description: ''
 components:
   schemas:
+    ConstructorPredictionRequest:
+      type: object
+      properties:
+        team_1:
+          type: integer
+        team_2:
+          type: integer
+        team_3:
+          type: integer
+      required:
+      - team_1
+      - team_2
+      - team_3
+    ConstructorPredictionResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        league:
+          type: integer
+        user:
+          type: integer
+        team_1:
+          type: integer
+        team_2:
+          type: integer
+        team_3:
+          type: integer
+      required:
+      - id
+      - league
+      - team_1
+      - team_2
+      - team_3
+      - user
+    LoginUser:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - password
+      - username
+    PatchedConstructorPredictionRequest:
+      type: object
+      properties:
+        team_1:
+          type: integer
+        team_2:
+          type: integer
+        team_3:
+          type: integer
     PatchedUserLeague:
       type: object
       properties:
@@ -216,6 +598,25 @@ components:
           type: array
           items:
             type: integer
+    PatchedWeekendEventPredictionRequest:
+      type: object
+      properties:
+        circuit:
+          type: integer
+        podium_1:
+          type: integer
+        podium_2:
+          type: integer
+        podium_3:
+          type: integer
+        driver_4:
+          type: integer
+        driver_5:
+          type: integer
+        fastest_lap:
+          type: integer
+        driver_of_the_day:
+          type: integer
     User:
       type: object
       properties:
@@ -312,7 +713,74 @@ components:
       - players
       - season
       - updated_on
+    WeekendEventPredictionRequest:
+      type: object
+      properties:
+        circuit:
+          type: integer
+        podium_1:
+          type: integer
+        podium_2:
+          type: integer
+        podium_3:
+          type: integer
+        driver_4:
+          type: integer
+        driver_5:
+          type: integer
+        fastest_lap:
+          type: integer
+        driver_of_the_day:
+          type: integer
+      required:
+      - circuit
+      - driver_4
+      - driver_5
+      - driver_of_the_day
+      - fastest_lap
+      - podium_1
+      - podium_2
+      - podium_3
+    WeekendEventPredictionResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        league:
+          type: integer
+        user:
+          type: integer
+        circuit:
+          type: integer
+        podium_1:
+          type: integer
+        podium_2:
+          type: integer
+        podium_3:
+          type: integer
+        driver_4:
+          type: integer
+        driver_5:
+          type: integer
+        fastest_lap:
+          type: integer
+        driver_of_the_day:
+          type: integer
+      required:
+      - circuit
+      - driver_4
+      - driver_5
+      - driver_of_the_day
+      - fastest_lap
+      - id
+      - league
+      - podium_1
+      - podium_2
+      - podium_3
+      - user
   securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

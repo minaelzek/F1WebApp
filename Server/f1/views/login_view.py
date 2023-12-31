@@ -10,7 +10,7 @@ from ..serlializers.user_serlializer import LoginUserSerializer
 class RegisterUserView(APIView):
     permission_classes = [permissions.AllowAny]
 
-    @extend_schema(request=UserSerializer, responses={201: UserSerializer, 400: None})
+    @extend_schema(request=UserSerializer, responses={201: UserSerializer, 400: None}, tags=["User"])
     def post(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data, many=False)
         if serializer.is_valid():
@@ -24,7 +24,7 @@ class LoginUserView(APIView):
     permission_classes = [permissions.AllowAny]
     authentication_classes = [SessionAuthentication]
 
-    @extend_schema(request=LoginUserSerializer, responses=None)
+    @extend_schema(request=LoginUserSerializer, responses={200: None, 401: None}, tags=["User"])
     def post(self, request, *args, **kwargs):
         serializer = LoginUserSerializer(data=request.data)
         if serializer.is_valid():
@@ -40,6 +40,7 @@ class LogoutUserView(APIView):
     authentication_classes = [SessionAuthentication]
 
     # TODO: need to add extend_schema to this
+    @extend_schema(request=None, responses=None, tags=["User"])
     def post(self, request):
         logout(request)
         return Response(status=status.HTTP_200_OK)
