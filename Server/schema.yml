@@ -3,90 +3,9 @@ info:
   title: F1 API
   version: 0.0.1
 paths:
-  /f1/user/:
-    get:
-      operationId: f1_user_retrieve
-      tags:
-      - f1
-      security:
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-          description: ''
-  /f1/user/leagues/:
-    get:
-      operationId: f1_user_leagues_retrieve
-      tags:
-      - f1
-      security:
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-          description: ''
+  /f1/register/user/:
     post:
-      operationId: f1_user_leagues_create
-      tags:
-      - f1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserLeague'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/UserLeague'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UserLeague'
-        required: true
-      security:
-      - basicAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserLeague'
-          description: ''
-        '400':
-          description: No response body
-    patch:
-      operationId: f1_user_leagues_partial_update
-      tags:
-      - f1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedUserLeague'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedUserLeague'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedUserLeague'
-      security:
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserLeague'
-          description: ''
-        '400':
-          description: No response body
-  /f1/user/register/:
-    post:
-      operationId: f1_user_register_create
+      operationId: f1_register_user_create
       tags:
       - f1
       requestBody:
@@ -113,6 +32,162 @@ paths:
           description: ''
         '400':
           description: No response body
+  /f1/user/{user_id}:
+    get:
+      operationId: f1_user_retrieve
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - f1
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /f1/user/{user_id}/league/:
+    post:
+      operationId: f1_user_league_create
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - f1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLeague'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserLeague'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserLeague'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLeague'
+          description: ''
+        '400':
+          description: No response body
+  /f1/user/{user_id}/league/{league_id}:
+    get:
+      operationId: f1_user_league_retrieve
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - f1
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: f1_user_league_partial_update
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - f1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserLeague'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserLeague'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserLeague'
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLeague'
+          description: ''
+        '400':
+          description: No response body
+    delete:
+      operationId: f1_user_league_destroy
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - f1
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /f1/user/{user_id}/leagues/:
+    get:
+      operationId: f1_user_leagues_retrieve
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - f1
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
 components:
   schemas:
     PatchedUserLeague:
