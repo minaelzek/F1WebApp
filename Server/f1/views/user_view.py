@@ -27,7 +27,7 @@ class UserCreateLeague(APIView):
     @extend_schema(
         request=UserLeagueSerializer,
         responses={201: UserLeagueSerializer, 400: None},
-        tags=["UserLeague"],
+        tags=["League"],
     )
     def post(self, request):
         data = {
@@ -47,7 +47,7 @@ class UserCreateLeague(APIView):
 class UserLeague(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    @extend_schema(request=None, responses={200: UserSerializer}, tags=["UserLeague"])
+    @extend_schema(request=None, responses={200: UserSerializer}, tags=["League"])
     def get(self, request, league_id):
         leagues = League.objects.filter(pk=league_id, players__id=request.user.id)
         serializer = UserLeagueSerializer(leagues, many=True)
@@ -56,7 +56,7 @@ class UserLeague(APIView):
     @extend_schema(
         request=UserLeagueSerializer,
         responses={200: UserLeagueSerializer, 400: None},
-        tags=["UserLeague"],
+        tags=["League"],
     )
     def patch(self, request, league_id):
         league = get_object_or_404(League, pk=league_id, owner=request.user.id)
@@ -70,7 +70,7 @@ class UserLeague(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @extend_schema(request=UserLeagueSerializer, responses=None, tags=["UserLeague"])
+    @extend_schema(request=UserLeagueSerializer, responses=None, tags=["League"])
     def delete(self, request, league_id):
         league = get_object_or_404(League, pk=league_id, owner=request.user.id)
         league.delete()
@@ -80,7 +80,7 @@ class UserLeague(APIView):
 class UserLeagues(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    @extend_schema(request=None, responses={200: UserSerializer}, tags=["UserLeague"])
+    @extend_schema(request=None, responses={200: UserSerializer}, tags=["League"])
     def get(self, request):
         leagues = League.objects.filter(players__id=request.user.id)
         serializer = UserLeagueSerializer(leagues, many=True)
