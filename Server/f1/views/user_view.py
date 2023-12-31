@@ -8,20 +8,6 @@ from ..models.fantasy import League
 from ..serlializers.user_serlializer import UserSerializer
 from ..serlializers.user_serlializer import UserLeagueSerializer
 
-
-class RegisterUserView(APIView):
-    permission_classes = [permissions.AllowAny]
-
-    @extend_schema(request=UserSerializer, responses={201: UserSerializer, 400: None})
-    def post(self, request, *args, **kwargs):
-        serializer = UserSerializer(data=request.data, many=False)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 class UserView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 

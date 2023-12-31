@@ -12,6 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
 
+class LoginUserSerializer(serializers.Serializer):
+    username = serializers.CharField(trim_whitespace=True)
+    password = serializers.CharField(write_only=True)
+    
 
 class UserLeagueSerializer(serializers.ModelSerializer):
     class Meta:
