@@ -43,6 +43,7 @@ class LogoutUserView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [SessionAuthentication]
 
+    # TODO: need to add extend_schema to this
     def post(self, request):
         logout(request)
         return Response(status=status.HTTP_200_OK)
