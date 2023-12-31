@@ -67,15 +67,9 @@ paths:
           description: ''
         '400':
           description: No response body
-  /f1/user/{user_id}:
+  /f1/user/:
     get:
       operationId: f1_user_retrieve
-      parameters:
-      - in: path
-        name: user_id
-        schema:
-          type: integer
-        required: true
       tags:
       - User
       security:
@@ -87,15 +81,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/User'
           description: ''
-  /f1/user/{user_id}/league/:
+  /f1/user/league/:
     post:
       operationId: f1_user_league_create
-      parameters:
-      - in: path
-        name: user_id
-        schema:
-          type: integer
-        required: true
       tags:
       - UserLeague
       requestBody:
@@ -121,17 +109,12 @@ paths:
           description: ''
         '400':
           description: No response body
-  /f1/user/{user_id}/league/{league_id}:
+  /f1/user/league/{league_id}:
     get:
       operationId: f1_user_league_retrieve
       parameters:
       - in: path
         name: league_id
-        schema:
-          type: integer
-        required: true
-      - in: path
-        name: user_id
         schema:
           type: integer
         required: true
@@ -151,11 +134,6 @@ paths:
       parameters:
       - in: path
         name: league_id
-        schema:
-          type: integer
-        required: true
-      - in: path
-        name: user_id
         schema:
           type: integer
         required: true
@@ -191,11 +169,6 @@ paths:
         schema:
           type: integer
         required: true
-      - in: path
-        name: user_id
-        schema:
-          type: integer
-        required: true
       tags:
       - UserLeague
       security:
@@ -203,7 +176,41 @@ paths:
       responses:
         '204':
           description: No response body
-  /f1/user/{user_id}/league/{league_id}/constructorPrediction/{prediction_id}:
+  /f1/user/league/{league_id}/constructorPrediction:
+    post:
+      operationId: f1_user_league_constructorPrediction_create
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Constructor Predictions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConstructorPredictionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConstructorPredictionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConstructorPredictionRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstructorPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+  /f1/user/league/{league_id}/constructorPrediction/{prediction_id}:
     get:
       operationId: f1_user_league_constructorPrediction_retrieve
       parameters:
@@ -217,32 +224,123 @@ paths:
         schema:
           type: integer
         required: true
-      - in: path
-        name: user_id
-        schema:
-          type: integer
-        required: true
       tags:
-      - Predictions
+      - Constructor Predictions
       security:
       - cookieAuth: []
-      - {}
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstructorPredictionSerlializer'
+                $ref: '#/components/schemas/ConstructorPredictionResponse'
           description: ''
-  /f1/user/{user_id}/leagues/:
-    get:
-      operationId: f1_user_leagues_retrieve
+        '400':
+          description: No response body
+    put:
+      operationId: f1_user_league_constructorPrediction_update
       parameters:
       - in: path
-        name: user_id
+        name: league_id
         schema:
           type: integer
         required: true
+      - in: path
+        name: prediction_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Constructor Predictions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConstructorPredictionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConstructorPredictionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConstructorPredictionRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstructorPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+    patch:
+      operationId: f1_user_league_constructorPrediction_partial_update
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: prediction_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Constructor Predictions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedConstructorPredictionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedConstructorPredictionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedConstructorPredictionRequest'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstructorPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+    delete:
+      operationId: f1_user_league_constructorPrediction_destroy
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: prediction_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Constructor Predictions
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstructorPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
+  /f1/user/leagues/:
+    get:
+      operationId: f1_user_leagues_retrieve
       tags:
       - UserLeague
       security:
@@ -256,20 +354,24 @@ paths:
           description: ''
 components:
   schemas:
-    ConstructorPredictionSerlializer:
+    ConstructorPredictionRequest:
+      type: object
+      properties:
+        team_1:
+          type: integer
+        team_2:
+          type: integer
+        team_3:
+          type: integer
+      required:
+      - team_1
+      - team_2
+      - team_3
+    ConstructorPredictionResponse:
       type: object
       properties:
         id:
           type: integer
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          title: Created On
-        updated_on:
-          type: string
-          format: date-time
           readOnly: true
         league:
           type: integer
@@ -282,13 +384,11 @@ components:
         team_3:
           type: integer
       required:
-      - created_at
       - id
       - league
       - team_1
       - team_2
       - team_3
-      - updated_on
       - user
     LoginUser:
       type: object
@@ -301,6 +401,15 @@ components:
       required:
       - password
       - username
+    PatchedConstructorPredictionRequest:
+      type: object
+      properties:
+        team_1:
+          type: integer
+        team_2:
+          type: integer
+        team_3:
+          type: integer
     PatchedUserLeague:
       type: object
       properties:

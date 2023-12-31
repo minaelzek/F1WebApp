@@ -1,23 +1,46 @@
-from rest_framework.views import APIView
-from rest_framework import status, permissions
+from rest_framework import status, permissions, generics
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema
 from ..models.fantasy import ConstructorPrediction
-from ..serlializers.fantasy_serializer import ConstructorPredictionSerlializer
+from ..serlializers.fantasy_serializer import (
+    ConstructorPredictionRequest,
+    ConstructorPredictionResponse,
+)
 
 
-class ConstructorPredictionView(APIView):
-    permission_classes = [permissions.AllowAny]
+@extend_schema(
+    request=ConstructorPredictionRequest,
+    responses={201: ConstructorPredictionResponse, 400: None},
+    tags=["Constructor Predictions"],
+)
+class ConstructorPredictionCreateView(generics.CreateAPIView):
+    serializer_class = ConstructorPredictionRequest
+    permission_classes = [permissions.IsAuthenticated]
 
-    @extend_schema(
-        request=None,
-        responses={200: ConstructorPredictionSerlializer},
-        tags=["Predictions"],
-    )
-    def get(self, request, user_id, prediction_id):
-        constructor_prediction = ConstructorPrediction.objects.get(
-            id=prediction_id, user__id=user_id
-        )
-        serializer = ConstructorPredictionSerlializer(constructor_prediction)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user, league_id=self.kwargs["league_id"])
+
+
+@extend_schema(
+    request=ConstructorPredictionRequest,
+    responses={200: ConstructorPredictionResponse, 400: None},
+    tags=["Constructor Predictions"],
+)
+class ConstructorPredictionView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ConstructorPredictionResponse
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = ConstructorPrediction.objects.all()
+    lookup_url_kwarg = 'prediction_id'
+
+    def get_queryset(self):
+        league_id = self.kwargs["league_id"]
+        return ConstructorPrediction.objects.filter(league_id=league_id)
+    
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user, league_id=self.kwargs["league_id"])
+
+    def get_serializer(self, *args, **kwargs):
+        # mini hack to make PUTs partial updates 
+        kwargs['partial'] = True
+        return super().get_serializer(*args, **kwargs)
