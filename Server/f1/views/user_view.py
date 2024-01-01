@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema
 from ..models.user import User
 from ..models.fantasy import League
-from ..serlializers.user_serlializer import UserSerializer, UserLeagueSerializer
+from ..serializers.user_serializer import UserSerializer, UserLeagueSerializer
 
 
 class UserView(APIView):

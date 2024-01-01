@@ -2,6 +2,7 @@ from django.db import models
 from .base_model import BaseModel
 from .user import User
 from .f1 import Season, Circuit, Driver, Team
+from .f1_weekend import RaceResult
 
 class League(BaseModel):
     season = models.ForeignKey(Season, on_delete=models.CASCADE)
@@ -25,7 +26,7 @@ class ConstructorPrediction(BaseModel):
 class WeekendEventPrediction(BaseModel):
     league = models.ForeignKey(League, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    circuit = models.ForeignKey(Circuit, on_delete=models.CASCADE)
+    race = models.ForeignKey(RaceResult, on_delete=models.CASCADE)
     podium_1 = models.ForeignKey(Driver, related_name="podium_1", on_delete=models.CASCADE)
     podium_2 = models.ForeignKey(Driver, related_name="podium_2", on_delete=models.CASCADE)
     podium_3 = models.ForeignKey(Driver, related_name="podium_3", on_delete=models.CASCADE)

@@ -9,6 +9,7 @@ Base Models for weekend events
 class BaseModelEventResult(BaseModel):
     circuit = models.ForeignKey(Circuit, on_delete=models.CASCADE)
     season = models.ForeignKey(Season, on_delete=models.CASCADE)
+    date = models.DateField(null=False)
 
     class Meta:
         abstract = True
