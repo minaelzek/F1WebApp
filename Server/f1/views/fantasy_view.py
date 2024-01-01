@@ -16,12 +16,23 @@ from ..serlializers.fantasy_serializer import (
     responses={201: ConstructorPredictionResponse, 400: None},
     tags=["Constructor Predictions"],
 )
-class ConstructorPredictionCreateView(generics.CreateAPIView):
+class ConstructorPredictionCreateView(generics.ListCreateAPIView):
     serializer_class = ConstructorPredictionRequest
     permission_classes = [permissions.IsAuthenticated]
+    queryset = ConstructorPrediction.objects.all()
+
+    def get_queryset(self):
+        league_id = self.kwargs["league_id"]
+        return ConstructorPrediction.objects.filter(user=self.request.user, league_id=league_id)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user, league_id=self.kwargs["league_id"])
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return ConstructorPredictionRequest
+        elif self.request.method == 'GET':
+            return ConstructorPredictionResponse
 
 
 @extend_schema(
@@ -53,12 +64,23 @@ class ConstructorPredictionView(generics.RetrieveUpdateDestroyAPIView):
     responses={200: WeekendEventPredictionResponse, 400: None},
     tags=["Weekend Predictions"],
 )
-class WeekendEventPredictionCreateView(generics.CreateAPIView):
+class WeekendEventPredictionCreateView(generics.ListCreateAPIView):
     serializer_class = WeekendEventPredictionRequest
     permission_classes = [permissions.IsAuthenticated]
+    queryset = ConstructorPrediction.objects.all()
+
+    def get_queryset(self):
+        league_id = self.kwargs["league_id"]
+        return WeekendEventPrediction.objects.filter(user=self.request.user, league_id=league_id)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user, league_id=self.kwargs["league_id"])
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return WeekendEventPredictionRequest
+        elif self.request.method == 'GET':
+            return WeekendEventPredictionResponse
 
 
 @extend_schema(
@@ -71,6 +93,10 @@ class WeekendEventPredictionView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
     queryset = WeekendEventPrediction.objects.all()
     lookup_url_kwarg = "prediction_id"
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return WeekendEventPredictionResponse
 
     def get_queryset(self):
         league_id = self.kwargs["league_id"]
