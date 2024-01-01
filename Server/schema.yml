@@ -177,6 +177,29 @@ paths:
         '204':
           description: No response body
   /f1/user/league/{league_id}/constructorPrediction:
+    get:
+      operationId: f1_user_league_constructorPrediction_list
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Constructor Predictions
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConstructorPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
     post:
       operationId: f1_user_league_constructorPrediction_create
       parameters:
@@ -339,6 +362,29 @@ paths:
         '400':
           description: No response body
   /f1/user/league/{league_id}/weekend_prediction:
+    get:
+      operationId: f1_user_league_weekend_prediction_list
+      parameters:
+      - in: path
+        name: league_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Weekend Predictions
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WeekendEventPredictionResponse'
+          description: ''
+        '400':
+          description: No response body
     post:
       operationId: f1_user_league_weekend_prediction_create
       parameters:
