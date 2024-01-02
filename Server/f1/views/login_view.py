@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication
 from django.contrib.auth import authenticate, login, logout
 from drf_spectacular.utils import extend_schema
-from ..serlializers.user_serlializer import UserSerializer
-from ..serlializers.user_serlializer import LoginUserSerializer
+from ..serializers.user_serializer import UserSerializer, LoginUserSerializer
+
 
 class RegisterUserView(APIView):
     permission_classes = [permissions.AllowAny]

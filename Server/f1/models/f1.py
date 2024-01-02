@@ -31,6 +31,7 @@ class Circuit(BaseModel):
     # track length
     # Sector 1, 2, 3
     # DRS zones
+    # country
     def __str__(self):
         return self.name
     

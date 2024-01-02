@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema
 from ..models.fantasy import ConstructorPrediction, WeekendEventPrediction
-from ..serlializers.fantasy_serializer import (
+from ..serializers.fantasy_serializer import (
     ConstructorPredictionRequest,
     ConstructorPredictionResponse,
     WeekendEventPredictionRequest,
