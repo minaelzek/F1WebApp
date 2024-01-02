@@ -33,7 +33,7 @@ class WeekendEventPredictionRequest(serializers.ModelSerializer):
     class Meta:
         model = WeekendEventPrediction
         fields = [
-            "circuit",
+            "race",
             "podium_1",
             "podium_2",
             "podium_3",
@@ -64,7 +64,7 @@ class WeekendEventPredictionResponse(serializers.ModelSerializer):
             "id",
             "league",
             "user",
-            "circuit",
+            "race",
             "podium_1",
             "podium_2",
             "podium_3",
