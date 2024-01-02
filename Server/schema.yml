@@ -647,7 +647,7 @@ components:
     PatchedWeekendEventPredictionRequest:
       type: object
       properties:
-        circuit:
+        race:
           type: integer
         podium_1:
           type: integer
@@ -762,7 +762,7 @@ components:
     WeekendEventPredictionRequest:
       type: object
       properties:
-        circuit:
+        race:
           type: integer
         podium_1:
           type: integer
@@ -779,7 +779,6 @@ components:
         driver_of_the_day:
           type: integer
       required:
-      - circuit
       - driver_4
       - driver_5
       - driver_of_the_day
@@ -787,6 +786,7 @@ components:
       - podium_1
       - podium_2
       - podium_3
+      - race
     WeekendEventPredictionResponse:
       type: object
       properties:
@@ -797,7 +797,7 @@ components:
           type: integer
         user:
           type: integer
-        circuit:
+        race:
           type: integer
         podium_1:
           type: integer
@@ -814,7 +814,6 @@ components:
         driver_of_the_day:
           type: integer
       required:
-      - circuit
       - driver_4
       - driver_5
       - driver_of_the_day
@@ -824,6 +823,7 @@ components:
       - podium_1
       - podium_2
       - podium_3
+      - race
       - user
   securitySchemes:
     cookieAuth:
