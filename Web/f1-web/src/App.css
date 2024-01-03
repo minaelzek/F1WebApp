@@ -2,6 +2,7 @@
   --primary-color: #f95738;
   --secondary-color: #293241; 
   --text-color: #e7ecef;
+  --link-color: #faf0ca;
 }
 
 .App {
@@ -27,7 +28,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
