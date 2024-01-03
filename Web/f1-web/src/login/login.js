@@ -16,7 +16,7 @@ const LoginForm = () => {
       username: username,
       password: password,
     });
-    console.log(loginRes)
+    console.log(loginRes);
     if (loginRes !== false) {
       const userData = await endpoints.user.getUserInfo();
       console.log(userData);
@@ -24,11 +24,11 @@ const LoginForm = () => {
     }
   };
 
-//   TODO: better way of checking if user is logged in, check for sessionId and csrf token in cookies or create another endpoint for checkIfLoggedIn
+  //   TODO: better way of checking if user is logged in, check for sessionId and csrf token in cookies or create another endpoint for checkIfLoggedIn
   const checkIfUserIsLoggedIn = async () => {
-    const user = await endpoints.user.getUserInfo()
-    if(user){
-        navigate('/home');
+    const user = await endpoints.user.getUserInfo();
+    if (user) {
+      navigate("/home");
     }
   };
   useEffect(() => {
@@ -36,7 +36,7 @@ const LoginForm = () => {
   }, []);
 
   return (
-    <Container className="login d-flex align-items-center justify-content-center">
+    <Container className="login-form-border d-flex align-items-center justify-content-center">
       <Form onSubmit={handleSubmit} className="col-8">
         <Form.Group className="mb-3" controlId="formBasicUsername">
           <Form.Control
@@ -47,7 +47,7 @@ const LoginForm = () => {
             required
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-1" controlId="formBasicPassword">
           <Form.Control
             type="password"
             placeholder="Password"
@@ -56,23 +56,27 @@ const LoginForm = () => {
             required
           />
         </Form.Group>
-        <div className="d-grid">
-          <Button variant="main" type="submit">
-            Sign In
-          </Button>
+        <div>
+          <div className="row">
+            <div className="col-6">
+              <NavLink href="/forgot-password" className="">
+                Forgot Password?
+              </NavLink>
+            </div>
+            <div className="col-12 d-flex justify-content-center mt-3">
+              <Button variant="main" type="submit" className="col-12">
+                Sign In
+              </Button>
+            </div>
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-6 ">
+              <NavLink href="/register" className="mt-3">
+                Register
+              </NavLink>
+            </div>
+          </div>
         </div>
-        <Row className="mt-3">
-          <Col>
-            <p className="">
-              <NavLink href="/register">Register</NavLink>
-            </p>
-          </Col>
-          <Col>
-            <p className="">
-              <NavLink href="/forgot-password">Forgot Password?</NavLink>
-            </p>
-          </Col>
-        </Row>
       </Form>
     </Container>
   );

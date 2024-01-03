@@ -8,6 +8,7 @@
 .App {
   min-height: 100vh;
   text-align: center;
+  color: var(--text-color);
   background-color:  var(--secondary-color);
   z-index: -1;
 }
@@ -29,7 +30,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--text-color);
 }
 
 /* .App-link {
@@ -58,4 +59,8 @@
 
 .login {
   z-index: 1;
+}
+
+.nav-link {
+  color: var(--link-color) !important;
 }
