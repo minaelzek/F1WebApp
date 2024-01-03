@@ -2,7 +2,9 @@
     background-color: var(--primary-color);
 
     &:hover {
-        background-color: var(--secondary-color);
+        box-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+        color: black;
+        background-color: var(--link-color);
       }
   }
 

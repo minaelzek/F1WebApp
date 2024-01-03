@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-import { Container, Form, Button, Col, Row, NavLink } from "react-bootstrap";
+import { Container, Form, Button, NavLink } from "react-bootstrap";
 import { endpoints } from "../api";
 
 const LoginForm = () => {
@@ -33,11 +33,12 @@ const LoginForm = () => {
   };
   useEffect(() => {
     checkIfUserIsLoggedIn();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Container className="login-form-border d-flex align-items-center justify-content-center">
-      <Form onSubmit={handleSubmit} className="col-8">
+      <Form onSubmit={handleSubmit} className="col-7">
         <Form.Group className="mb-3" controlId="formBasicUsername">
           <Form.Control
             type="username"
