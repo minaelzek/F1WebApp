@@ -11,8 +11,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route>
-            <Route exact path ="/" element={<LoginPage/>}/>
-            <Route exact path ="/register" element={<RegisterPage/>}/>
+            <Route exact path="/" element={<LoginPage />} />
+            <Route exact path="/register" element={<RegisterPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
@@ -30,14 +30,13 @@ const LoginPage = () => {
         />
       </video>
       <div className="login d-flex align-items-center justify-content-center">
-        <LoginHeader className="p-2" />
+        <LoginHeader />
         <LoginForm />
       </div>
       <AudioPlayer />
     </div>
   );
 };
-
 
 const RegisterPage = () => {
   return (
