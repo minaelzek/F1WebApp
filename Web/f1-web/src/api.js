@@ -1,11 +1,16 @@
+// TODO: add env values
 const BASE_URL = 'http://127.0.0.1:8000';
 
 // Helper function to handle the response from the API
-const handleResponse = (response) => {
+const handleResponse = async (response) => {
   if (!response.ok) {
-    throw new Error(`Request failed with status: ${response.status}`);
+    console.log(`Request failed with status: ${response.status}`);
+    const errorResponse = await response.json();
+    const errorMessage = errorResponse.error || 'Unknown error';
+    alert(`${errorMessage}`);
+  } else {
+    return response.json();
   }
-  return response.json();
 };
 
 // Function to make a GET request
@@ -15,7 +20,6 @@ export const get = async (endpoint) => {
     return handleResponse(response);
   } catch (error) {
     console.error(`Error during GET request to ${endpoint}:`, error.message);
-    throw error;
   }
 };
 
@@ -32,7 +36,6 @@ export const post = async (endpoint, data) => {
     return handleResponse(response);
   } catch (error) {
     console.error(`Error during POST request to ${endpoint}:`, error.message);
-    throw error;
   }
 };
 

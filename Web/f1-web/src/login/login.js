@@ -19,8 +19,8 @@ const LoginForm = () => {
   };
 
   return (
-    <Container className=" d-flex align-items-center justify-content-center" style={{height: "1000px"}}>
-      <Form onSubmit={handleSubmit} className="col-4">
+    <Container className="login d-flex align-items-center justify-content-center">
+      <Form onSubmit={handleSubmit} className="col-8">
             <Form.Group  className="mb-3" controlId="formBasicUsername">
               <Form.Control
                 type="username"
@@ -49,4 +49,14 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+const LoginHeader = () => {
+
+
+    return(
+        <div className="header">
+            Welcome to F1 Fantasy
+        </div>
+    )
+}
+
+export {LoginForm, LoginHeader};

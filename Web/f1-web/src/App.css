@@ -1,11 +1,12 @@
 :root {
-  --primary-color: red; /* Your custom primary color */
-  --secondary-color: lightgrey; /* Your custom secondary color */
+  --primary-color: #f95738;
+  --secondary-color: #293241; 
 }
 
 .App {
   text-align: center;
-  /* background-color: #282c34; */
+  background-color:  var(--secondary-color);
+  z-index: -1;
 }
 
 .App-logo {
@@ -20,7 +21,7 @@
 }
 
 .App-header {
-  /* background-color: #282c34; */
+  /* background-color:  var(--secondary-color); */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -30,9 +31,9 @@
   color: white;
 }
 
-.App-link {
+/* .App-link {
   color: #61dafb;
-}
+} */
 
 @keyframes App-logo-spin {
   from {
@@ -50,16 +51,10 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index:-1;
-  opacity: 90%;
+  z-index:0;
+  opacity: 10%;
 }
 
-
-.btn-main {
-  background-color: var(--primary-color);
-  color: black;
-
-  &:hover {
-      background-color: black;
-    }
+.login {
+  z-index: 1;
 }

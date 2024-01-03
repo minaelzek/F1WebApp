@@ -1,8 +1,12 @@
 .btn-main {
     background-color: var(--primary-color);
-    color: black;
 
     &:hover {
-        background-color: black;
+        background-color: var(--secondary-color);
       }
+  }
+
+  
+  .header{
+    font-size: 52px;
   }
