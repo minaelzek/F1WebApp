@@ -19,12 +19,12 @@ function App() {
               path="/register"
               element={
                 <div className="login-wrapper">
-                  <Video/>
+                  <Video />
                   <RegisterPage />
                 </div>
               }
             />
-            <Route exact path="/home" element={<HomePage/>}/>
+            <Route exact path="/home" element={<HomePage />} />
           </Route>
         </Routes>
       </BrowserRouter>
@@ -35,10 +35,12 @@ function App() {
 const LoginPage = () => {
   return (
     <div className="login-wrapper">
-      <Video/>
-      <div className="login d-flex align-items-center justify-content-center">
+      <Video />
+      <div className="login align-items-center justify-content-center">
         <LoginHeader />
-        <LoginForm />
+        <div className="mt-5">
+          <LoginForm />
+        </div>
       </div>
       <AudioPlayer />
     </div>
@@ -70,7 +72,7 @@ const AudioPlayer = () => {
 
   return (
     <div>
-      <audio ref={audioRef} >
+      <audio ref={audioRef}>
         <source src={sound} type="audio/mp3" />
       </audio>
     </div>
