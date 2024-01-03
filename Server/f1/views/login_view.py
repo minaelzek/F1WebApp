@@ -53,6 +53,6 @@ class LogoutUserView(APIView):
 
     # TODO: need to add extend_schema to this
     @extend_schema(request=None, responses=None, tags=["User"])
-    def post(self, request):
+    def get(self, request):
         logout(request)
         return Response(status=status.HTTP_200_OK)
