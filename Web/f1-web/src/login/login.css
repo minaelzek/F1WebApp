@@ -1,0 +1,17 @@
+.btn-main {
+    background-color: var(--primary-color);
+
+    &:hover {
+        background-color: var(--secondary-color);
+      }
+  }
+
+  
+  .header{
+    font-size: 54px;
+    color: var(--text-color);
+  }
+
+  a {
+    color: var(--link-color);
+  }
