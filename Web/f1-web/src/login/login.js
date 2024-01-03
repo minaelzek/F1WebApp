@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
+import { useNavigate } from 'react-router-dom';
 import "./login.css"
-import { Container, Form, Button, Col, Row } from 'react-bootstrap';
+import { Container, Form, Button, Col, Row, NavLink } from 'react-bootstrap';
 import { endpoints } from "../api";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,7 +19,18 @@ const LoginForm = () => {
 
     const userData = await endpoints.user.getUserInfo()
     console.log(userData)
+    navigate('/home');
   };
+
+  const checkIfUserIsLoggedIn = async () => {
+    const user = await endpoints.user.getUserInfo()
+    if(user){
+        navigate('/home');
+    }
+  }
+  useEffect(() => {
+    checkIfUserIsLoggedIn()
+  },[])
 
   return (
     <Container className="login d-flex align-items-center justify-content-center">
@@ -48,12 +61,12 @@ const LoginForm = () => {
             <Row className="mt-3">
           <Col>
             <p className="">
-             <a href="/register">Register</a>
+             <NavLink href="/register">Register</NavLink>
             </p>
           </Col>
           <Col>
             <p className="">
-              <a href="/forgot-password">Forgot Password?</a>
+              <NavLink href="/forgot-password">Forgot Password?</NavLink>
             </p>
           </Col>
         </Row>
@@ -63,7 +76,6 @@ const LoginForm = () => {
 };
 
 const LoginHeader = () => {
-
 
     return(
         <div className="header">

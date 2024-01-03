@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { useEffect, useRef } from "react";
 import sound from "./login-sound-engines.mp3";
 import { LoginHeader, LoginForm } from "./login/login.js";
+import RegisterPage from "./login/register.js";
+import HomePage from "./user-home/home.js";
 
 function App() {
   return (
@@ -12,7 +14,17 @@ function App() {
         <Routes>
           <Route>
             <Route exact path="/" element={<LoginPage />} />
-            <Route exact path="/register" element={<RegisterPage />} />
+            <Route
+              exact
+              path="/register"
+              element={
+                <div className="login-wrapper">
+                  <Video/>
+                  <RegisterPage />
+                </div>
+              }
+            />
+            <Route exact path="/home" element={<HomePage/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
@@ -23,12 +35,7 @@ function App() {
 const LoginPage = () => {
   return (
     <div className="login-wrapper">
-      <video className="videoTag" autoPlay loop muted>
-        <source
-          src="https://s3.eu-west-1.amazonaws.com/eu-west-1.vimeo.com/videos/700/879/700879408.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAZRUUNWVAWWO32QM7%2F20240103%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20240103T030233Z&X-Amz-Expires=86399&X-Amz-SignedHeaders=host&X-Amz-Signature=04ddcd4fbcdbd1e9fd7c7179b39bd0166ca09def90c5a14cb61fc39c3f29016a"
-          type="video/mp4"
-        />
-      </video>
+      <Video/>
       <div className="login d-flex align-items-center justify-content-center">
         <LoginHeader />
         <LoginForm />
@@ -38,12 +45,14 @@ const LoginPage = () => {
   );
 };
 
-const RegisterPage = () => {
+const Video = () => {
   return (
-    <div className="login-wrapper">
-      <h2>Register Page</h2>
-      {/* Add your register form or content here */}
-    </div>
+    <video className="videoTag" autoPlay loop muted>
+      <source
+        src="https://s3.eu-west-1.amazonaws.com/eu-west-1.vimeo.com/videos/700/879/700879408.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAZRUUNWVAWWO32QM7%2F20240103%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20240103T030233Z&X-Amz-Expires=86399&X-Amz-SignedHeaders=host&X-Amz-Signature=04ddcd4fbcdbd1e9fd7c7179b39bd0166ca09def90c5a14cb61fc39c3f29016a"
+        type="video/mp4"
+      />
+    </video>
   );
 };
 
@@ -61,7 +70,7 @@ const AudioPlayer = () => {
 
   return (
     <div>
-      <audio ref={audioRef} autoPlay>
+      <audio ref={audioRef} >
         <source src={sound} type="audio/mp3" />
       </audio>
     </div>
