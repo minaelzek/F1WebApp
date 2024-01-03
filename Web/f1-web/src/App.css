@@ -1,5 +1,11 @@
+:root {
+  --primary-color: red; /* Your custom primary color */
+  --secondary-color: lightgrey; /* Your custom secondary color */
+}
+
 .App {
   text-align: center;
+  /* background-color: #282c34; */
 }
 
 .App-logo {
@@ -14,7 +20,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +41,25 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.videoTag {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index:-1;
+  opacity: 90%;
+}
+
+
+.btn-main {
+  background-color: var(--primary-color);
+  color: black;
+
+  &:hover {
+      background-color: black;
+    }
 }

@@ -1,0 +1,8 @@
+.btn-main {
+    background-color: var(--primary-color);
+    color: black;
+
+    &:hover {
+        background-color: black;
+      }
+  }
