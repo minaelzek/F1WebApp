@@ -61,7 +61,7 @@ const AudioPlayer = () => {
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.1;
+      audioRef.current.volume = 0.025;
       audioRef.current.play().catch((error) => {
         console.error("Autoplay prevented:", error);
       });

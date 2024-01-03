@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const logout = () => {
-    endpoints.user.logout();
-    navigate("/");
+  const logout = async () => {
+    const res = await endpoints.user.logout();
+    if (res !== false) {
+      navigate("/");
+    }
   };
   return (
     <div>

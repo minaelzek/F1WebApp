@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { endpoints } from "../api";
 import { Container, Form, Button, Col, Row, Alert } from "react-bootstrap";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const [registerData, setRegisterData] = useState({
     first_name: "",
     last_name: "",
@@ -25,13 +27,15 @@ const RegisterPage = () => {
     const { confirmPassword, ...dataWithoutConfirmPassword } = registerData;
 
     await endpoints.user.register(dataWithoutConfirmPassword);
-    await endpoints.user.login({
-        username: registerData.username,
-        password: registerData.password,
-      })
-    const userData = await endpoints.user.getUserInfo()
-    console.log(userData)
-    // TODO: direct user to home page
+    const loginRes = await endpoints.user.login({
+      username: registerData.username,
+      password: registerData.password,
+    });
+    if (loginRes !== false) {
+      const userData = await endpoints.user.getUserInfo();
+      console.log(userData);
+      navigate("/home");
+    }
   };
 
   return (
