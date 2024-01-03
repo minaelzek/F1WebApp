@@ -8,5 +8,6 @@
 
   
   .header{
-    font-size: 52px;
+    font-size: 54px;
+    color: var(--text-color);
   }

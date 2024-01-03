@@ -1,6 +1,7 @@
 :root {
   --primary-color: #f95738;
   --secondary-color: #293241; 
+  --text-color: #e7ecef;
 }
 
 .App {
@@ -21,7 +22,6 @@
 }
 
 .App-header {
-  /* background-color:  var(--secondary-color); */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
