@@ -3,6 +3,56 @@ info:
   title: F1 API
   version: 0.0.1
 paths:
+  /f1/circuits/:
+    post:
+      operationId: f1_circuits_create
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+        required: true
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+        '401':
+          description: No response body
+  /f1/drivers/:
+    post:
+      operationId: f1_drivers_create
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+        required: true
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+        '401':
+          description: No response body
   /f1/login/user/:
     post:
       operationId: f1_login_user_create
@@ -29,8 +79,8 @@ paths:
         '401':
           description: No response body
   /f1/logout/user/:
-    post:
-      operationId: f1_logout_user_create
+    get:
+      operationId: f1_logout_user_retrieve
       tags:
       - User
       security:
@@ -64,6 +114,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+          description: ''
+        '400':
+          description: No response body
+  /f1/seasons/:
+    post:
+      operationId: f1_seasons_create
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+        required: true
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+        '401':
+          description: No response body
+  /f1/teams/:
+    get:
+      operationId: f1_teams_list
+      tags:
+      - Teams
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
           description: ''
         '400':
           description: No response body
@@ -663,6 +756,34 @@ components:
           type: integer
         driver_of_the_day:
           type: integer
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Created On
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        points:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+      required:
+      - created_at
+      - id
+      - name
+      - updated_on
     User:
       type: object
       properties:
