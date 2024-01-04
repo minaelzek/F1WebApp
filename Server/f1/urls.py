@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import user_view, login_view, fantasy_view
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from .views import user_view, login_view, fantasy_view, f1_view
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView 
 
 urlpatterns = [
     # DOCS
@@ -20,4 +20,9 @@ urlpatterns = [
     path('user/league/<int:league_id>/constructorPrediction/<int:prediction_id>', fantasy_view.ConstructorPredictionView.as_view()),
     path('user/league/<int:league_id>/weekend_prediction', fantasy_view.WeekendEventPredictionCreateView.as_view()),
     path('user/league/<int:league_id>/weekend_prediction/<int:prediction_id>', fantasy_view.WeekendEventPredictionView.as_view()),
+     # F1 APIs
+    path('teams/', f1_view.TeamListView.as_view()),
+    path('drivers/', f1_view.DriverListView.as_view()),
+    path('seasons/', f1_view.SeasonListView.as_view()),
+    path('circuits/', f1_view.CircuitListView.as_view()),
 ]
