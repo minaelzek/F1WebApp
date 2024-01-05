@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from "react";
 import sound from "./login-sound-engines.mp3";
 import { LoginHeader, LoginForm } from "./login/login.js";
 import RegisterPage from "./login/register.js";
-import HomePage from "./user-home/home.js";
+import { HomePage } from "./user-home/home.js";
 
 function App() {
   return (

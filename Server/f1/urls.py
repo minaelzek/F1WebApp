@@ -20,4 +20,5 @@ urlpatterns = [
     path('user/league/<int:league_id>/constructorPrediction/<int:prediction_id>', fantasy_view.ConstructorPredictionView.as_view()),
     path('user/league/<int:league_id>/weekend_prediction', fantasy_view.WeekendEventPredictionCreateView.as_view()),
     path('user/league/<int:league_id>/weekend_prediction/<int:prediction_id>', fantasy_view.WeekendEventPredictionView.as_view()),
+    path('user/loginSummary', login_view.LoginSummaryView.as_view())
 ]
