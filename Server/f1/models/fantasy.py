@@ -12,7 +12,12 @@ class League(BaseModel):
 
     def __str__(self):
         return self.name
-    
+
+class LeagueUser(BaseModel):
+    league = models.ForeignKey(League, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_points = models.PositiveIntegerField(default=0, null=False)
+
 class ConstructorPrediction(BaseModel):
     league = models.ForeignKey(League, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
