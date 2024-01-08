@@ -1,10 +1,14 @@
 from rest_framework.views import APIView
-from rest_framework import status, permissions
+from rest_framework import status, permissions, generics
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication
 from django.contrib.auth import authenticate, login, logout
 from drf_spectacular.utils import extend_schema
 from ..serializers.user_serializer import UserSerializer, LoginUserSerializer
+from ..serializers.login_summary_serializer import LoginSummarySerializer
+from ..models.f1 import Team, Driver
+from ..models.fantasy import League
+from ..models.user import User
 
 
 class RegisterUserView(APIView):
@@ -56,3 +60,28 @@ class LogoutUserView(APIView):
     def get(self, request):
         logout(request)
         return Response(status=status.HTTP_200_OK)
+
+@extend_schema(request= None, responses=LoginSummarySerializer, tags=["User"])
+class LoginSummaryView(generics.RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = LoginSummarySerializer
+
+    def get_object(self):
+        user_id = self.request.user.id
+        user_instance = generics.get_object_or_404(User, pk=user_id)
+        
+        teams_queryset = Team.objects.all()
+        drivers_queryset = Driver.objects.all()
+        leagues_queryset = League.objects.filter(players__id=user_id)
+
+        return {
+            'user': user_instance,
+            'teams': teams_queryset,
+            'drivers': drivers_queryset,
+            'leagues': leagues_queryset
+        }
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)

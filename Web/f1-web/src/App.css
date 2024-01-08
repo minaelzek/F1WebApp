@@ -1,8 +1,9 @@
 :root {
   --primary-color: #f95738;
   --secondary-color: #293241; 
+  --tertiary-color: #155EA2;
   --text-color: #e7ecef;
-  --link-color: #faf0ca;
+  --link-color: #F8EBB4;
 }
 
 .App {
@@ -63,4 +64,8 @@
 
 .nav-link {
   color: var(--link-color) !important;
+
+  &:hover {
+   color: var(--text-color) !important;
+  }
 }

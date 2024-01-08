@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-import { Container, Form, Button, Col, Row, NavLink } from "react-bootstrap";
+import { Container, Form, Button, NavLink } from "react-bootstrap";
 import { endpoints } from "../api";
+import Cookies from 'js-cookie';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -26,6 +27,15 @@ const LoginForm = () => {
 
   //   TODO: better way of checking if user is logged in, check for sessionId and csrf token in cookies or create another endpoint for checkIfLoggedIn
   const checkIfUserIsLoggedIn = async () => {
+    const sessionId = Cookies.get('sessionid');
+    const csrfToken = Cookies.get('csrftoken');
+    if (sessionId && csrfToken) {
+      const user = await endpoints.user.getUserInfo();
+      if (user) {
+        navigate("/home");
+      }
+    }
+
     const user = await endpoints.user.getUserInfo();
     if (user) {
       navigate("/home");
@@ -33,11 +43,12 @@ const LoginForm = () => {
   };
   useEffect(() => {
     checkIfUserIsLoggedIn();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Container className="login-form-border d-flex align-items-center justify-content-center">
-      <Form onSubmit={handleSubmit} className="col-8">
+      <Form onSubmit={handleSubmit} className="col-7">
         <Form.Group className="mb-3" controlId="formBasicUsername">
           <Form.Control
             type="username"

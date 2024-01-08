@@ -53,5 +53,6 @@ export const endpoints = {
     logout: async () => get("f1/logout/user/", false),
     register: async (userData) => post("f1/register/user/", userData, true),
     getUserInfo: async () => get("f1/user/", false),
+    getLoginSummary: async () => get("f1/user/loginSummary", false),
   },
 };

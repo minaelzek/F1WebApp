@@ -1,16 +1,18 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React, { useEffect, useRef } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import React, { Fragment, useEffect, useRef } from "react";
 import sound from "./login-sound-engines.mp3";
 import { LoginHeader, LoginForm } from "./login/login.js";
 import RegisterPage from "./login/register.js";
-import HomePage from "./user-home/home.js";
+import { HomePage } from "./user-home/home.js";
+import ProtectedRoutes from "./ProtectedRoutes.js";
+import TopNavigation from "./user-home/nav.js";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <TopNavigation />
         <Routes>
           <Route>
             <Route exact path="/" element={<LoginPage />} />
@@ -24,10 +26,13 @@ function App() {
                 </div>
               }
             />
-            <Route exact path="/home" element={<HomePage />} />
+            <Route element={<ProtectedRoutes />}>
+              
+              <Route exact path='/home' element={<HomePage />} />
+            </Route>
           </Route>
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-      </BrowserRouter>
     </div>
   );
 }

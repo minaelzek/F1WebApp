@@ -653,6 +653,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/User'
           description: ''
+  /f1/user/loginSummary:
+    get:
+      operationId: f1_user_loginSummary_retrieve
+      tags:
+      - Summary
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginSummary'
+          description: ''
 components:
   schemas:
     ConstructorPredictionRequest:
@@ -690,6 +704,90 @@ components:
       - team_1
       - team_2
       - team_3
+      - user
+    Driver:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Created On
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        points:
+          type: integer
+        team:
+          type: integer
+      required:
+      - created_at
+      - id
+      - name
+      - team
+      - updated_on
+    League:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Created On
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        season:
+          type: integer
+        owner:
+          type: integer
+        players:
+          type: array
+          items:
+            type: integer
+      required:
+      - created_at
+      - id
+      - name
+      - owner
+      - players
+      - season
+      - updated_on
+    LoginSummary:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+        drivers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Driver'
+        leagues:
+          type: array
+          items:
+            $ref: '#/components/schemas/League'
+      required:
+      - drivers
+      - leagues
+      - teams
       - user
     LoginUser:
       type: object

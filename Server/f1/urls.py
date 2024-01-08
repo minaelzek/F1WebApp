@@ -25,4 +25,5 @@ urlpatterns = [
     path('drivers/', f1_view.DriverListView.as_view()),
     path('seasons/', f1_view.SeasonListView.as_view()),
     path('circuits/', f1_view.CircuitListView.as_view()),
+    path('user/loginSummary', login_view.LoginSummaryView.as_view())
 ]
