@@ -32,6 +32,8 @@ CORS_ALLOWED_ORIGINS = [
 
 AUTH_USER_MODEL = 'f1.User'
 CSRF_COOKIE_SECURE=True
+# This will be removed after development phase
+SESSION_COOKIE_HTTPONLY = False
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Col, Row, ListGroup } from "react-bootstrap";
 import { endpoints } from "../api";
-import TopNavigation from "./nav";
+
 
 const HomePage = () => {
   const [tableData, setTableData] = useState({});
@@ -93,8 +93,8 @@ const HomePage = () => {
 
   return (
     <div>
-      {/* TODO: move app js and add a check to see if the user is logged in then show nav */}
-      <TopNavigation />
+      
+      
       <TableData />
     </div>
   );
