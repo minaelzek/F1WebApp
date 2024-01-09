@@ -36,10 +36,11 @@ const LoginForm = () => {
       }
     }
 
-    const user = await endpoints.user.getUserInfo();
-    if (user) {
-      navigate("/home");
-    }
+    // const user = await endpoints.user.getUserInfo();
+  
+    // if (user) {
+    //   navigate("/home");
+    // }
   };
   useEffect(() => {
     checkIfUserIsLoggedIn();

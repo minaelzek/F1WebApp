@@ -13,26 +13,25 @@ function App() {
   return (
     <div className="App">
       <TopNavigation />
-        <Routes>
-          <Route>
-            <Route exact path="/" element={<LoginPage />} />
-            <Route
-              exact
-              path="/register"
-              element={
-                <div className="login-wrapper">
-                  <Video />
-                  <RegisterPage />
-                </div>
-              }
-            />
-            <Route element={<ProtectedRoutes />}>
-              
-              <Route exact path='/home' element={<HomePage />} />
-            </Route>
+      <Routes>
+        <Route>
+          <Route exact path="/" element={<LoginPage />} />
+          <Route
+            exact
+            path="/register"
+            element={
+              <div className="login-wrapper">
+                <Video />
+                <RegisterPage />
+              </div>
+            }
+          />
+          <Route element={<ProtectedRoutes />}>
+            <Route exact path="/home" element={<HomePage />} />
           </Route>
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
     </div>
   );
 }
@@ -47,7 +46,7 @@ const LoginPage = () => {
           <LoginForm />
         </div>
       </div>
-      <AudioPlayer />
+      {/* <AudioPlayer /> */}
     </div>
   );
 };
